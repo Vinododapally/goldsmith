@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class InvoiceController {
     @Autowired
     InvoiceRepository invoiceRepository;
@@ -46,6 +47,7 @@ public class InvoiceController {
         invoice.setNetWeight(invoiceDetails.getNetWeight());
         invoice.setOrderNumber(invoiceDetails.getOrderNumber());
         invoice.setTotalStones(invoiceDetails.getTotalStones());
+        invoice.setStoneWeight(invoiceDetails.getStoneWeight());
         return invoiceRepository.save(invoice);
     }
 
