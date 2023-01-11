@@ -23,3 +23,12 @@ CREATE TABLE order_invoice (
     making_charges double,
     PRIMARY KEY (ref_id)
 );
+
+CREATE TABLE show_rooms (
+    id bigint not null auto_increment,
+    showroom_name varchar(100),
+    contact_name varchar(100),
+    mobile_number varchar(10),
+    address varchar(300),
+    PRIMARY KEY (id)
+);
