@@ -55,7 +55,8 @@ public class InvoiceController {
         invoice.setNetWeight(invoiceDetails.getNetWeight());
         invoice.setOrderNumber(invoiceDetails.getOrderNumber());
         invoice.setTotalStones(invoiceDetails.getTotalStones());
-        invoice.setStoneWeight(invoiceDetails.getStoneWeight());
+        invoice.setStoneWeightInCarat(invoiceDetails.getStoneWeightInCarat());
+        invoice.setStoneWeightInGrams(invoiceDetails.getStoneWeightInGrams());
         return invoiceRepository.save(invoice);
     }
 
