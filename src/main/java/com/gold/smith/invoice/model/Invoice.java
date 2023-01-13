@@ -27,8 +27,11 @@ public class Invoice {
     @NonNull
     private Integer totalStones;
 
-    @Column(name = "stone_weight")
-    private Float stoneWeight;
+    @Column(name = "stone_weight_grams")
+    private Float stoneWeightInGrams;
+
+    @Column(name = "stone_weight_carat")
+    private Float stoneWeightInCarat;
 
     @Column(name = "net_weight")
     private Float netWeight;
@@ -133,12 +136,20 @@ public class Invoice {
         this.makingCharges = makingCharges;
     }
 
-    public Float getStoneWeight() {
-        return stoneWeight;
+    public Float getStoneWeightInGrams() {
+        return stoneWeightInGrams;
     }
 
-    public void setStoneWeight(Float stoneWeight) {
-        this.stoneWeight = stoneWeight;
+    public void setStoneWeightInGrams(Float stoneWeightInGrams) {
+        this.stoneWeightInGrams = stoneWeightInGrams;
+    }
+
+    public Float getStoneWeightInCarat() {
+        return stoneWeightInCarat;
+    }
+
+    public void setStoneWeightInCarat(Float stoneWeightInCarat) {
+        this.stoneWeightInCarat = stoneWeightInCarat;
     }
 
     @Override
@@ -150,7 +161,8 @@ public class Invoice {
                 ", itemName='" + itemName + '\'' +
                 ", grossWeight=" + grossWeight +
                 ", totalStones=" + totalStones +
-                ", stoneWeight=" + stoneWeight +
+                ", stoneWeightGrams=" + stoneWeightInGrams +
+                ", stoneWeightCarat=" + stoneWeightInCarat +
                 ", netWeight=" + netWeight +
                 ", gold92Per=" + gold92Per +
                 ", gold12Per=" + gold12Per +
