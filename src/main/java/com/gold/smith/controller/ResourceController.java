@@ -46,8 +46,11 @@ class ResourceController {
 				.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
-
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		AuthenticationResponse response = new AuthenticationResponse();
+		response.setToken(jwt);
+		response.setUsername(userDetails.getUsername());
+		response.setPassword(userDetails.getPassword());
+		return ResponseEntity.ok(response);
 	}
 
 }

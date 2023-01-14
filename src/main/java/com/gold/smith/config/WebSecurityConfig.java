@@ -52,10 +52,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override // This method is to create the JWT token if we hit the /authenticate api
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable().cors().disable()
+        httpSecurity.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/api/**").permitAll()
+                //.antMatchers("/api/**").permitAll()
                 //.antMatchers("/api/*").permitAll()
                 .antMatchers("/authenticate").permitAll().
                 anyRequest().authenticated().and().
