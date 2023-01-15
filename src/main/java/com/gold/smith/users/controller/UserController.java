@@ -56,4 +56,13 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/user/{name}")
+    public boolean getUserByName(@PathVariable(value = "name") String userName) {
+        User user = userRepository.findByUsername(userName);
+        if(user!=null && user.getUsername()!=null){
+            return true;
+        }
+        return false;
+    }
+
 }
