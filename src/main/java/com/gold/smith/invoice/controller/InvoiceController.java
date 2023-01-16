@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -27,6 +28,7 @@ public class InvoiceController {
 
     @GetMapping("/invoices")
     public List<Invoice> getAllInvoices() {
+
         return invoiceRepository.findAll();
     }
 
@@ -42,7 +44,7 @@ public class InvoiceController {
     }
 
     @PutMapping("/invoice/{id}")
-    public Invoice updateInvoice(@PathVariable(value = "id") Long invoiceId, @RequestBody Invoice invoiceDetails) {
+    public Invoice updateInvoice(@PathVariable(value = "id") Long invoiceId, @RequestBody Invoice invoiceDetails) throws ParseException {
         Invoice invoice = invoiceRepository.findById(invoiceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Invoice", "id", invoiceId));
         invoice.setDeliveryDate(invoiceDetails.getDeliveryDate());
