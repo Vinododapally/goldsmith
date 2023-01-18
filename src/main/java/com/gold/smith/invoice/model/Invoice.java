@@ -44,6 +44,17 @@ public class Invoice {
     @Column(name = "making_charges")
     private Double makingCharges;
 
+    @Transient
+    private Date toDate;
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
     public Long getRefId() {
         return refId;
     }
@@ -121,7 +132,7 @@ public class Invoice {
     }
 
     public Date getDeliveryDate() {
-        return deliveryDate;
+        return this.deliveryDate;
     }
 
     public void setDeliveryDate(Date deliveryDate) {
@@ -170,4 +181,5 @@ public class Invoice {
                 ", makingCharges=" + makingCharges +
                 '}';
     }
+
 }

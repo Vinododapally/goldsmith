@@ -5,16 +5,11 @@ import com.gold.smith.invoice.model.Invoice;
 import com.gold.smith.invoice.repository.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,6 +22,7 @@ public class InvoiceController {
 
     @GetMapping("/invoices")
     public List<Invoice> getAllInvoices() {
+
         return invoiceRepository.findAll();
     }
 
@@ -42,7 +38,7 @@ public class InvoiceController {
     }
 
     @PutMapping("/invoice/{id}")
-    public Invoice updateInvoice(@PathVariable(value = "id") Long invoiceId, @RequestBody Invoice invoiceDetails) {
+    public Invoice updateInvoice(@PathVariable(value = "id") Long invoiceId, @RequestBody Invoice invoiceDetails) throws ParseException {
         Invoice invoice = invoiceRepository.findById(invoiceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Invoice", "id", invoiceId));
         invoice.setDeliveryDate(invoiceDetails.getDeliveryDate());
@@ -66,5 +62,33 @@ public class InvoiceController {
                 .orElseThrow(() -> new ResourceNotFoundException("Invoice", "id", invoiceId));
         invoiceRepository.delete(invoice);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/invoice/filters")
+    public List<Invoice> getInvoicesBasedOnParam(@RequestBody Invoice invoice) throws ParseException {
+        String showroom = invoice.getShowroom();
+        Date fromDate = null;
+        Date toDate = null;
+        if (invoice.getDeliveryDate() != null) {
+            fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(dateFormat(invoice.getDeliveryDate()));
+        }
+        if (invoice.getToDate() != null) {
+            toDate = new SimpleDateFormat("yyyy-MM-dd").parse(dateFormat(invoice.getToDate()));
+        }
+        if ((showroom != null && toDate != null && fromDate == null) || (showroom != null && fromDate != null && toDate == null)) {
+            if (fromDate != null) {
+                toDate = fromDate;
+            }
+            return invoiceRepository.getInvoicesBasedOnTheParams(showroom, toDate);
+        }
+        return invoiceRepository.getInvoicesBasedOnTheParam(showroom, fromDate, toDate);
+
+    }
+
+    private String dateFormat(Date date) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy");
+        Date parsedDate = sdf.parse(String.valueOf(date));
+        SimpleDateFormat print = new SimpleDateFormat("yyyy-MM-dd");
+        return print.format(parsedDate);
     }
 }
