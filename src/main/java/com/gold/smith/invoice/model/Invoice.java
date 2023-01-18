@@ -3,8 +3,6 @@ package com.gold.smith.invoice.model;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -45,6 +43,17 @@ public class Invoice {
     private Date deliveryDate;
     @Column(name = "making_charges")
     private Double makingCharges;
+
+    @Transient
+    private Date toDate;
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
 
     public Long getRefId() {
         return refId;
@@ -122,8 +131,8 @@ public class Invoice {
         this.gold12Per = gold12Per;
     }
 
-    public Date getDeliveryDate() throws ParseException {
-        return deliveryDate();
+    public Date getDeliveryDate() {
+        return this.deliveryDate;
     }
 
     public void setDeliveryDate(Date deliveryDate) {
@@ -173,10 +182,4 @@ public class Invoice {
                 '}';
     }
 
-    private Date deliveryDate() throws ParseException {
-        String pattern = "dd/MM/yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        String date = simpleDateFormat.format(this.deliveryDate);
-        return new SimpleDateFormat("dd/MM/yyyy").parse(date);
-    }
 }
