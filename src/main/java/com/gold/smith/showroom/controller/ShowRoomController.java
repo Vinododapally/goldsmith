@@ -37,7 +37,10 @@ public class ShowRoomController {
     public ShowRoom updateShowRoom(@PathVariable(value = "id") Long showRoomId, @RequestBody ShowRoom showRoomDetails) {
         ShowRoom showRoom = showRoomRepository.findById(showRoomId)
                 .orElseThrow(() -> new ResourceNotFoundException("ShowRoom", "id", showRoomId));
-
+        showRoom.setName(showRoomDetails.getName());
+        showRoom.setMobileNumber(showRoomDetails.getMobileNumber());
+        showRoom.setContactName(showRoomDetails.getContactName());
+        showRoom.setAddress(showRoomDetails.getAddress());
         return showRoomRepository.save(showRoom);
     }
 
