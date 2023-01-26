@@ -32,3 +32,11 @@ CREATE TABLE show_rooms (
     address varchar(300),
     PRIMARY KEY (id)
 );
+
+CREATE TABLE file_upload (
+    id bigint not null auto_increment,
+    file_name varchar(100),
+    file_type varchar(100),
+    image varbinary(6000),
+    PRIMARY KEY (id)
+);
