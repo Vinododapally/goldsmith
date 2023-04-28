@@ -15,6 +15,8 @@ public class AuthenticationResponse implements Serializable {
 
     private String token;
 
+    private String errorMessage;
+
 
     public String getToken() {
         return token;
@@ -64,5 +66,13 @@ public class AuthenticationResponse implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

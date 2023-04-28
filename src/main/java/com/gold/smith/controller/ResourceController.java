@@ -5,6 +5,7 @@ import com.gold.smith.models.AuthenticationRequest;
 import com.gold.smith.models.AuthenticationResponse;
 import com.gold.smith.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -32,6 +33,7 @@ class ResourceController {
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+		AuthenticationResponse response = new AuthenticationResponse();
 
 		try {
 			authenticationManager.authenticate(
@@ -39,14 +41,16 @@ class ResourceController {
 			);
 		}
 		catch (BadCredentialsException e) {
-			throw new Exception("Incorrect username or password please verify once", e);
+//			throw new Exception("Incorrect username or password please verify once", e);
+			response.setErrorMessage("Incorrect username or password please verify once");
+
+			return ResponseEntity.ok(response);
 		}
 
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
-		AuthenticationResponse response = new AuthenticationResponse();
 		response.setToken(jwt);
 		response.setUsername(userDetails.getUsername());
 		response.setPassword(userDetails.getPassword());
