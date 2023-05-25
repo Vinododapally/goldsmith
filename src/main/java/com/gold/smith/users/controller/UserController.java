@@ -3,6 +3,8 @@ package com.gold.smith.users.controller;
 import com.gold.smith.exception.ResourceNotFoundException;
 import com.gold.smith.users.model.User;
 import com.gold.smith.users.repository.UserRepository;
+import com.gold.smith.util.BaseConfig;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:8080/goldsmith-frontend")
+@CrossOrigin(origins = BaseConfig.baseUrl)
 public class UserController {
     @Autowired
     UserRepository userRepository;

@@ -3,6 +3,8 @@ package com.gold.smith.showroom.controller;
 import com.gold.smith.exception.ResourceNotFoundException;
 import com.gold.smith.showroom.model.ShowRoom;
 import com.gold.smith.showroom.repository.ShowRoomRepository;
+import com.gold.smith.util.BaseConfig;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:8080/goldsmith-frontend")
+@CrossOrigin(origins = BaseConfig.baseUrl)
 public class ShowRoomController {
     @Autowired
     ShowRoomRepository showRoomRepository;

@@ -3,6 +3,8 @@ package com.gold.smith.invoice.controller;
 import com.gold.smith.exception.ResourceNotFoundException;
 import com.gold.smith.invoice.model.Invoice;
 import com.gold.smith.invoice.repository.InvoiceRepository;
+import com.gold.smith.util.BaseConfig;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:8080/goldsmith-frontend")
+@CrossOrigin(origins = BaseConfig.baseUrl)
 public class InvoiceController {
     @Autowired
     InvoiceRepository invoiceRepository;

@@ -3,6 +3,7 @@ package com.gold.smith.controller;
 import com.gold.smith.config.UserDetailsServiceImpl;
 import com.gold.smith.models.AuthenticationRequest;
 import com.gold.smith.models.AuthenticationResponse;
+import com.gold.smith.util.BaseConfig;
 import com.gold.smith.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080/goldsmith-frontend")
+@CrossOrigin(origins = BaseConfig.baseUrl)
 class ResourceController {
 
 	@Autowired
